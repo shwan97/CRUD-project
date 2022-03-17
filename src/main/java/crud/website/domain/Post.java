@@ -1,7 +1,7 @@
 package crud.website.domain;
 
 import com.sun.istack.NotNull;
-import crud.website.dto.PostRequestSaveDto;
+import crud.website.dto.PostDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +36,7 @@ public class Post extends BaseTimeEntity{
         this.content = content;
     }
 
-    public void update(PostRequestSaveDto postDto) {
+    public void update(PostDto postDto) {
         this.title = postDto.getTitle();
         this.content = postDto.getContent();
     }

@@ -1,7 +1,7 @@
 package crud.website.domain;
 
 import com.sun.istack.NotNull;
-import crud.website.dto.CommentSaveDto;
+import crud.website.dto.CommentDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,7 @@ public class Comment extends BaseTimeEntity{
         this.content = content;
     }
 
-    public void update(CommentSaveDto commentDto) {
+    public void update(CommentDto commentDto) {
         this.content = commentDto.getContent();
     }
 }
