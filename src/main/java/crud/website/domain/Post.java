@@ -1,14 +1,16 @@
 package crud.website.domain;
 
 import com.sun.istack.NotNull;
+import crud.website.dto.PostRequestSaveDto;
 import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@RequiredArgsConstructor
-@Builder
+@Getter
+@NoArgsConstructor
 public class Post extends BaseTimeEntity{
 
     @Id @GeneratedValue
@@ -25,4 +27,17 @@ public class Post extends BaseTimeEntity{
     @NotNull
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Builder
+    public Post(Long id, User user, String title, String content) {
+        this.id = id;
+        this.user = user;
+        this.title = title;
+        this.content = content;
+    }
+
+    public void update(PostRequestSaveDto postDto) {
+        this.title = postDto.getTitle();
+        this.content = postDto.getContent();
+    }
 }

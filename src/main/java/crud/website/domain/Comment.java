@@ -1,14 +1,16 @@
 package crud.website.domain;
 
 import com.sun.istack.NotNull;
+import crud.website.dto.CommentSaveDto;
 import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@RequiredArgsConstructor
-@Builder
+@Getter
+@NoArgsConstructor
 public class Comment extends BaseTimeEntity{
     @Id @GeneratedValue
     @Column(name = "COMMENT_ID")
@@ -24,4 +26,16 @@ public class Comment extends BaseTimeEntity{
 
     @NotNull
     private String content;
+
+    @Builder
+    public Comment(Long id, User user, Post post, String content) {
+        this.id = id;
+        this.user = user;
+        this.post = post;
+        this.content = content;
+    }
+
+    public void update(CommentSaveDto commentDto) {
+        this.content = commentDto.getContent();
+    }
 }
