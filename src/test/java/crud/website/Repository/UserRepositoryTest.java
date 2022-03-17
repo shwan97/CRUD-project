@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 @RunWith(SpringRunner.class)
 @Transactional
 @SpringBootTest
@@ -18,10 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 class UserRepositoryTest {
 
     @Autowired
+    private EntityManager em;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Test
-    @DisplayName("유저가 DB에 잘 저장되는지 확인한다.")
+    @DisplayName("유저가 저장된다.")
     public void saveUser() {
         //given
         UserDto userDto = UserDto.builder()
@@ -39,4 +44,23 @@ class UserRepositoryTest {
         Assertions.assertThat(findUser.getEmail()).isEqualTo("dexrf@gmail.com");
     }
 
+    @Test
+    @DisplayName("유저가 삭제된다.")
+    public void deleteUser() {
+        //given
+        UserDto userDto = UserDto.builder()
+                .email("dexrf@gmail.com")
+                .password("1234")
+                .nickname("hi")
+                .build();
+        User saveUser = userRepository.save(userDto);
+        em.clear();
+
+        //when
+        userRepository.delete(userDto);
+        User findUser = userRepository.findById(saveUser.getId());
+
+        //then
+        Assertions.assertThat(findUser).isEqualTo(null);
+    }
 }

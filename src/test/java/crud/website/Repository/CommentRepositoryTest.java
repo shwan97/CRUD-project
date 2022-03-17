@@ -58,4 +58,29 @@ class CommentRepositoryTest {
         Assertions.assertThat(findComment).isEqualTo(comment);
         Assertions.assertThat(findComment.getContent()).isEqualTo(comment.getContent());
     }
+
+    @Test
+    @DisplayName("댓글이 삭제된다.")
+    public void deleteComment() {
+
+        //given
+        UserDto userDto = UserDto.builder()
+                .email("dexrf@gmail.com")
+                .password("1234")
+                .nickname("hi")
+                .build();
+        User saveUser = userRepository.save(userDto);
+        Post savePost = Post.builder().title("title").content("content").user(saveUser).build();
+        postRepository.save(savePost);
+        Comment comment = Comment.builder().content("댓글이야").post(savePost).user(saveUser).build();
+        commentRepository.save(comment);
+
+        //when
+        commentRepository.delete(comment.getId());
+
+        //then
+        Comment findComment = em.find(Comment.class, comment.getId());
+        Assertions.assertThat(findComment).isEqualTo(null);
+    }
+
 }

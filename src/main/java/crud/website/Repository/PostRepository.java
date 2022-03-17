@@ -23,4 +23,9 @@ public class PostRepository {
         em.persist(entity);
         return entity;
     }
+
+    public void delete(Long id) {
+        Post post = em.find(Post.class, id);
+        em.remove(post);
+    }
 }

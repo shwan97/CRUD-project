@@ -46,5 +46,26 @@ class PostRepositoryTest {
         Assertions.assertThat(savePost).isEqualTo(findPost);
     }
 
+    @Test
+    @DisplayName("게시글이 삭제된다.")
+    public void deletePost(){
+
+        //given
+        UserDto userDto = UserDto.builder()
+                .email("dexrf@gmail.com")
+                .password("1234")
+                .nickname("hi")
+                .build();
+        User saveUser = userRepository.save(userDto);
+        Post savePost = Post.builder().title("title").content("content").user(saveUser).build();
+        postRepository.save(savePost);
+
+        //when
+        postRepository.delete(savePost.getId());
+
+        //then
+        Post findPost = postRepository.findById(savePost.getId());
+        Assertions.assertThat(findPost).isEqualTo(null);
+    }
 
 }

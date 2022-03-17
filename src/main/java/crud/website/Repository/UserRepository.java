@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
@@ -24,5 +25,12 @@ public class UserRepository {
         em.persist(user);
 
         return user;
+    }
+
+    public void delete(UserDto userDto) {
+        String email = userDto.getEmail();
+        int number = em.createQuery("delete from User u where u.email= :email")
+                .setParameter("email", email)
+                .executeUpdate();
     }
 }
