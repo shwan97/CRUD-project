@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/crud
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  h2:
+    console.enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace # 쿼리 파라미터를 로그로 남긴다.
+
