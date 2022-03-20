@@ -1,6 +1,5 @@
 package crud.website.dto;
 
-import crud.website.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

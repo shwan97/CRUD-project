@@ -1,7 +1,6 @@
 package crud.website.Repository;
 
 import crud.website.domain.Post;
-import crud.website.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

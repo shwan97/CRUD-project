@@ -1,8 +1,8 @@
 package crud.website.Repository;
 
+import crud.website.domain.Member;
 import crud.website.domain.Post;
-import crud.website.domain.User;
-import crud.website.dto.UserDto;
+import crud.website.dto.MemberDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,20 +21,20 @@ class PostRepositoryTest {
     private PostRepository postRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository userRepository;
 
     @Test
     @DisplayName("게시글이 저장된다.")
     public void savePost(){
 
         //given
-        UserDto userDto = UserDto.builder()
+        MemberDto userDto = MemberDto.builder()
                 .email("dexrf@gmail.com")
                 .password("1234")
                 .nickname("hi")
                 .build();
-        User saveUser = userRepository.save(userDto);
-        Post savePost = Post.builder().title("title").content("content").user(saveUser).build();
+        Member saveMember = userRepository.save(userDto);
+        Post savePost = Post.builder().title("title").content("content").member(saveMember).build();
         postRepository.save(savePost);
 
         //when
@@ -51,13 +49,13 @@ class PostRepositoryTest {
     public void deletePost(){
 
         //given
-        UserDto userDto = UserDto.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .email("dexrf@gmail.com")
                 .password("1234")
                 .nickname("hi")
                 .build();
-        User saveUser = userRepository.save(userDto);
-        Post savePost = Post.builder().title("title").content("content").user(saveUser).build();
+        Member saveMember = userRepository.save(memberDto);
+        Post savePost = Post.builder().title("title").content("content").member(saveMember).build();
         postRepository.save(savePost);
 
         //when

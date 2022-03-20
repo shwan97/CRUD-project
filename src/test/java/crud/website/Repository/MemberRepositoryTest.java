@@ -1,7 +1,7 @@
 package crud.website.Repository;
 
-import crud.website.domain.User;
-import crud.website.dto.UserDto;
+import crud.website.domain.Member;
+import crud.website.dto.MemberDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,50 +17,50 @@ import javax.persistence.EntityManager;
 @Transactional
 @SpringBootTest
 //@DataJpaTest
-class UserRepositoryTest {
+class MemberRepositoryTest {
 
     @Autowired
     private EntityManager em;
 
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
     @Test
-    @DisplayName("유저가 저장된다.")
-    public void saveUser() {
+    @DisplayName("멤버가 저장된다.")
+    public void saveMember() {
         //given
-        UserDto userDto = UserDto.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .email("dexrf@gmail.com")
                 .password("1234")
                 .nickname("hi")
                 .build();
-        User saveUser = userRepository.save(userDto);
+        Member saveMember = memberRepository.save(memberDto);
 
         //when
-        User findUser = userRepository.findById(saveUser.getId());
+        Member findMember = memberRepository.findById(saveMember.getId());
 
         //then
-        Assertions.assertThat(findUser).isEqualTo(saveUser);
-        Assertions.assertThat(findUser.getEmail()).isEqualTo("dexrf@gmail.com");
+        Assertions.assertThat(findMember).isEqualTo(saveMember);
+        Assertions.assertThat(findMember.getEmail()).isEqualTo("dexrf@gmail.com");
     }
 
     @Test
-    @DisplayName("유저가 삭제된다.")
-    public void deleteUser() {
+    @DisplayName("멤버가 삭제된다.")
+    public void deleteMember() {
         //given
-        UserDto userDto = UserDto.builder()
+        MemberDto memberDto = MemberDto.builder()
                 .email("dexrf@gmail.com")
                 .password("1234")
                 .nickname("hi")
                 .build();
-        User saveUser = userRepository.save(userDto);
+        Member saveMember = memberRepository.save(memberDto);
         em.clear();
 
         //when
-        userRepository.delete(userDto);
-        User findUser = userRepository.findById(saveUser.getId());
+        memberRepository.delete(memberDto);
+        Member findMember = memberRepository.findById(saveMember.getId());
 
         //then
-        Assertions.assertThat(findUser).isEqualTo(null);
+        Assertions.assertThat(findMember).isEqualTo(null);
     }
 }

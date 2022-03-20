@@ -1,11 +1,10 @@
 package crud.website.domain;
 
 import com.sun.istack.NotNull;
-import crud.website.dto.UserDto;
+import crud.website.dto.MemberDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +14,10 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @NoArgsConstructor
-public class User {
+public class Member {
 
     @Id @GeneratedValue
-    @Column(name = "USER_ID")
+    @Column(name = "MEMBER_ID")
     private Long id;
 
     @NotNull
@@ -31,14 +30,14 @@ public class User {
     private String nickname;
 
     @Builder
-    public User(Long id, String email, String password, String nickname) {
+    public Member(Long id, String email, String password, String nickname) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
     }
 
-    public void update(UserDto userDto) {
+    public void update(MemberDto userDto) {
         this.nickname = userDto.getNickname();
     }
 }

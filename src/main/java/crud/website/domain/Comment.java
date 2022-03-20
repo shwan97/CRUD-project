@@ -17,8 +17,8 @@ public class Comment extends BaseTimeEntity{
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "Member_ID")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
@@ -28,9 +28,9 @@ public class Comment extends BaseTimeEntity{
     private String content;
 
     @Builder
-    public Comment(Long id, User user, Post post, String content) {
+    public Comment(Long id, Member member, Post post, String content) {
         this.id = id;
-        this.user = user;
+        this.member = member;
         this.post = post;
         this.content = content;
     }
