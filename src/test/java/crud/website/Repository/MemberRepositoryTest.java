@@ -30,7 +30,7 @@ class MemberRepositoryTest {
     public void saveMember() {
         //given
         MemberDto memberDto = MemberDto.builder()
-                .email("dexrf@gmail.com")
+                .email("gradish@gmail.com")
                 .password("1234")
                 .nickname("hi")
                 .build();
@@ -49,7 +49,7 @@ class MemberRepositoryTest {
     public void deleteMember() {
         //given
         MemberDto memberDto = MemberDto.builder()
-                .email("dexrf@gmail.com")
+                .email("gradish@gmail.com")
                 .password("1234")
                 .nickname("hi")
                 .build();
@@ -62,5 +62,74 @@ class MemberRepositoryTest {
 
         //then
         Assertions.assertThat(findMember).isEqualTo(null);
+    }
+
+    @Test
+    @DisplayName("이메일로 회원을 조회한다.")
+    public void findMemberNyEmail() {
+        final String email = "gradish@gmail.com";
+        //given
+        MemberDto memberDto = MemberDto.builder()
+                .email(email)
+                .password("1234")
+                .nickname("hi")
+                .build();
+        Member saveMember = memberRepository.save(memberDto);
+
+        //when
+        Member findMember = memberRepository.findByEmail(memberDto);
+
+        //then
+        Assertions.assertThat(saveMember).isEqualTo(findMember);
+        Assertions.assertThat(saveMember.getId()).isEqualTo(findMember.getId());
+        Assertions.assertThat(saveMember.getNickname()).isEqualTo(findMember.getNickname());
+    }
+
+    @Test
+    @DisplayName("이메일 중복조회")
+    public void ExistsByEmail() {
+        //given
+        final String existsInDataBase = "solaris@gmail.com";
+        final String notExistsinDataBase = "MacOs@gmail.com";
+        MemberDto notExistsDto = MemberDto.builder()
+                .build();
+        MemberDto existDto = MemberDto.builder()
+                .email(existsInDataBase)
+                .password("1234")
+                .nickname("hi")
+                .build();
+        memberRepository.save(existDto);
+
+        //when
+        boolean exists = memberRepository.existsByEmail(existDto);
+        boolean notExists = memberRepository.existsByEmail(notExistsDto);
+
+        //then
+        Assertions.assertThat(exists).isEqualTo(true);
+        Assertions.assertThat(notExists).isEqualTo(false);
+    }
+
+    @Test
+    @DisplayName("닉네임 중복조회")
+    public void ExistsByNickname() {
+        //given
+        final String existsInDataBase = "existNickname";
+        final String notExistsinDataBase = "NotExistNickname";
+        MemberDto notExistsDto = MemberDto.builder()
+                .build();
+        MemberDto existDto = MemberDto.builder()
+                .email("solaris@gmail.com")
+                .password("1234")
+                .nickname(existsInDataBase)
+                .build();
+        memberRepository.save(existDto);
+
+        //when
+        boolean exists = memberRepository.existsByNickname(existDto);
+        boolean notExists = memberRepository.existsByNickname(notExistsDto);
+
+        //then
+        Assertions.assertThat(exists).isEqualTo(true);
+        Assertions.assertThat(notExists).isEqualTo(false);
     }
 }
