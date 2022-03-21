@@ -1,11 +1,13 @@
 package crud.website.Repository;
 
 import crud.website.domain.Post;
+import crud.website.dto.PostResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,5 +28,12 @@ public class PostRepository {
     public void delete(Long id) {
         Post post = em.find(Post.class, id);
         em.remove(post);
+    }
+
+    public List<PostResponseDto> findAll() {
+        List<PostResponseDto> resultList = em.createQuery("select new crud.website.dto.PostResponseDto(p.id, p.title, p.member.nickname, p.modifiedTime) from Post p inner join p.member m", PostResponseDto.class)
+                .getResultList();
+
+        return resultList;
     }
 }

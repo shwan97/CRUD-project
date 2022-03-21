@@ -25,7 +25,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("게시글이 저장된다.")
-    public void savePost(){
+    public void savePost() {
 
         //given
         MemberDto userDto = MemberDto.builder()
@@ -46,7 +46,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("게시글이 삭제된다.")
-    public void deletePost(){
+    public void deletePost() {
 
         //given
         MemberDto memberDto = MemberDto.builder()
@@ -66,4 +66,27 @@ class PostRepositoryTest {
         Assertions.assertThat(findPost).isEqualTo(null);
     }
 
+    @Test
+    @DisplayName("모든 게시글을 조회한다.")
+    public void findAll() {
+
+        final int testDataNumber = 9;
+        final int count = 10;
+        //given
+        MemberDto memberDto = MemberDto.builder()
+                .email("dexrf@gmail.com")
+                .password("1234")
+                .nickname("hi")
+                .build();
+        Member saveMember = userRepository.save(memberDto);
+
+        //when
+        for (int idx = 0; idx < count; idx++) {
+            Post savePost = Post.builder().title("title"+idx).content("content"+idx).member(saveMember).build();
+            postRepository.save(savePost);
+        }
+
+        //then
+        Assertions.assertThat(postRepository.findAll().size()).isEqualTo(count + testDataNumber);
+    }
 }
