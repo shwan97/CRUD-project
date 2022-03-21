@@ -13,8 +13,8 @@
     {{#posts}}
         <tr>
             <th scope="row">{{id}}</th>
-            <td>{{title}}</td>
-            <td>{{member.nickname}}</td>
+            <td><a href="/post/{{id}}" class="text-decoration-none text-reset">{{title}}</a></td>
+            <td>{{author}}</td>
             <td>{{modifiedTime}}</td>
         </tr>
     {{/posts}}
