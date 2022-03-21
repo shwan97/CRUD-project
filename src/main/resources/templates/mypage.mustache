@@ -1,0 +1,35 @@
+{{>layout/header}}
+<div class="container">
+    <form>
+        <div class="row mb-3">
+            <label for="inputNickname" class="col-sm-2 col-form-label">nickname</label>
+            <div class="col-sm-10">
+                <input name="nickname" type="text" class="form-control" id="inputNickname" placeholder="nickname" value={{nickname}}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary" id="btn-save">저장</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+<script>
+    $('#btn-save').on('click', function () {
+        var data = {
+            nickname: $('#inputNickname').val(),
+        };
+        $.ajax({
+            type: 'PATCH',
+            url: '/member/mypage',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert('회원정보가 변경되었습니다.');
+            window.location.href='/';
+        });
+    });
+</script>
+{{>layout/footer}}
