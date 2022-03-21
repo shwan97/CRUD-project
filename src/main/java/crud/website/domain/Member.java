@@ -37,7 +37,11 @@ public class Member {
         this.nickname = nickname;
     }
 
-    public void update(MemberDto userDto) {
-        this.nickname = userDto.getNickname();
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public boolean isValidPassword(String password) {
+        return this.password.equals(password);
     }
 }
