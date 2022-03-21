@@ -49,13 +49,13 @@ public class MemberController {
     }
 
     @PatchMapping("/mypage")
-    public String changeMemberInfo(HttpSession session, @RequestBody String nickname) {
+    public String updateMemberInfo(HttpSession session, @RequestBody String nickname) {
         Member member = (Member) session.getAttribute("sessionUser");
         System.out.println("nickname = " + nickname);
         if (member == null) {
             throw new IllegalStateException("로그인되어 있지 않은 상태입니다.");
         }
-        memberService.change(member.getId(), nickname);
+        memberService.update(member.getId(), nickname);
         return "redirect:/";
     }
 

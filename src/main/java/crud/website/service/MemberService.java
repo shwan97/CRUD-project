@@ -9,6 +9,6 @@ public interface MemberService {
 
     Member login(MemberDto memberDto);
 
-    void change(Long memberId, String newNickname);
+    void update(Long memberId, String newNickname);
 
 }

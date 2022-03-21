@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Transactional
-    public void change(Long memberId, String newNickname) {
+    public void update(Long memberId, String newNickname) {
         Member member = memberRepository.findById(memberId);
         member.updateNickname(newNickname);
     }
