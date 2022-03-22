@@ -43,20 +43,30 @@ public class MemberController {
         if (member == null) {
             throw new IllegalStateException("로그인되어 있지 않은 상태입니다.");
         }
+        MemberDto memberDto = MemberDto.builder()
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .nickname(member.getNickname())
+                .build();
         model.addAttribute("email", member.getEmail());
-        model.addAttribute("nickname", member.getNickname());
+        model.addAttribute("memberDto", memberDto);
         return "mypage";
     }
 
-    @PatchMapping("/mypage")
-    public String updateMemberInfo(HttpSession session, @RequestBody String nickname) {
+    @PutMapping("/mypage")
+    @ResponseBody
+    public MemberDto updateMemberInfo(HttpSession session, @RequestBody MemberDto memberDto) {
         Member member = (Member) session.getAttribute("sessionUser");
-        System.out.println("nickname = " + nickname);
+        System.out.println("nickname = " + memberDto.getNickname());
+        System.out.println("nickname = " + memberDto.getEmail());
+        System.out.println("nickname = " + memberDto.getPassword());
         if (member == null) {
             throw new IllegalStateException("로그인되어 있지 않은 상태입니다.");
         }
-        memberService.update(member.getId(), nickname);
-        return "redirect:/";
+        member.update(memberDto);
+        session.setAttribute("sessionUser", member);
+        memberService.update(member.getId(), memberDto);
+        return memberDto;
     }
 
     @GetMapping("/signup")
