@@ -20,7 +20,13 @@
     </div>
     <div class="row">
         <div class="col-sm-10 offset-sm-2">
-            <button id="btn-save" class="btn btn-primary">update</button>
+            <div>
+                <button id="btn-save" type="button" class="btn btn-primary">update</button>
+            </div>
+            <form id="blogForm" action="/member/mypage" method="POST" >
+                <input type="hidden" name="_method" value="DELETE"/>
+                <button id="btn-delete" type="submit" class="btn btn-danger">Delete</button>
+            </form>
         </div>
     </div>
 </div>
@@ -47,5 +53,22 @@
             alert("실패하였습니다");
         });
     });
+    // $('#btn-delete').on('click', function () {
+    //     // var data = {
+    //     //     email: $('#inputEmail').val(),
+    //     //     password: $('#inputPassword').val(),
+    //     //     nickname: $('#inputNickname').val(),
+    //     // };
+    //     $.ajax({
+    //         type: 'DELETE',
+    //         url: '/member/mypage',
+    //         dataType: 'json',
+    //         contentType: 'application/json; charset=utf-8',
+    //     }).done(function (data) {
+    //         alert('회원정보가 변경되었습니다.');
+    //     }).fail(function () {
+    //         alert("실패하였습니다");
+    //     });
+    // });
 </script>
 {{>layout/footer}}

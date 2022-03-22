@@ -11,4 +11,6 @@ public interface MemberService {
 
     void update(Long memberId, MemberDto memberDto);
 
+    void delete(Member member);
+
 }

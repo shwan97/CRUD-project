@@ -42,4 +42,9 @@ public class MemberServiceImpl implements MemberService{
         Member member = memberRepository.findById(memberId);
         member.update(memberDto);
     }
+
+    @Transactional
+    public void delete(Member member) {
+        memberRepository.delete(member);
+    }
 }

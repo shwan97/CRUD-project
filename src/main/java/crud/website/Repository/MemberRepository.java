@@ -54,10 +54,8 @@ public class MemberRepository {
         return member;
     }
 
-    public void delete(MemberDto userDto) {
-        String email = userDto.getEmail();
-        int number = em.createQuery("delete from Member m where m.email= :email")
-                .setParameter("email", email)
-                .executeUpdate();
+    public void delete(Member member) {
+        member = em.contains(member) ? member : em.merge(member);
+        em.remove(member);
     }
 }

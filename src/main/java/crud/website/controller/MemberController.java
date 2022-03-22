@@ -69,6 +69,17 @@ public class MemberController {
         return memberDto;
     }
 
+    @DeleteMapping("/mypage")
+    public String deleteMember(HttpSession session) {
+        Member member = (Member) session.getAttribute("sessionUser");
+        if (member == null) {
+            throw new IllegalStateException("로그인되어 있지 않은 상태입니다.");
+        }
+        memberService.delete(member);
+        session.removeAttribute("sessionUser");
+        return "redirect:/";
+    }
+
     @GetMapping("/signup")
     public String signup() {
         return "signup";

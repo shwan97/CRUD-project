@@ -6,10 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +27,12 @@ public class Member {
 
     @NotNull
     private String nickname;
+
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<Post> postList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
 
     @Builder
     public Member(Long id, String email, String password, String nickname) {

@@ -41,7 +41,7 @@ class MemberRepositoryTest {
 
         //then
         Assertions.assertThat(findMember).isEqualTo(saveMember);
-        Assertions.assertThat(findMember.getEmail()).isEqualTo("dexrf@gmail.com");
+        Assertions.assertThat(findMember.getEmail()).isEqualTo("gradish@gmail.com");
     }
 
     @Test
@@ -54,14 +54,19 @@ class MemberRepositoryTest {
                 .nickname("hi")
                 .build();
         Member saveMember = memberRepository.save(memberDto);
+        em.flush();
         em.clear();
 
         //when
-        memberRepository.delete(memberDto);
-        Member findMember = memberRepository.findById(saveMember.getId());
+        memberRepository.delete(saveMember);
+        em.flush();
+        em.clear();
+        Member findMember = em.find(Member.class, saveMember.getId());
 
         //then
+        System.out.println("findMember = " + findMember);
         Assertions.assertThat(findMember).isEqualTo(null);
+
     }
 
     @Test
