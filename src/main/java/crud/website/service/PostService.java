@@ -8,11 +8,8 @@ import java.util.List;
 
 public interface PostService {
 
-    public List<PostResponseDto> findAll();
-
-    public List<PostResponseDto> findListByPageId(Long pageId);
-
-    public PostDto findById(Long id);
-
-    public Long findLastPageNum();
+    List<PostResponseDto> findAll();
+    List<PostResponseDto> findListByPageId(Long pageId);
+    PostDto findById(Long id);
+    Long findLastPageNum();
 }
