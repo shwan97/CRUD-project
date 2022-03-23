@@ -10,5 +10,9 @@ public interface PostService {
 
     public List<PostResponseDto> findAll();
 
+    public List<PostResponseDto> findListByPageId(Long pageId);
+
     public PostDto findById(Long id);
+
+    public Long findLastPageNum();
 }

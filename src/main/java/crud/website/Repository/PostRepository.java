@@ -36,4 +36,18 @@ public class PostRepository {
 
         return resultList;
     }
+
+    public List<PostResponseDto> findListByPageId(Long pageId) {
+        int startPosition = (int)(pageId - 1) * 10;
+        List<PostResponseDto> resultList = em.createQuery("select new crud.website.dto.PostResponseDto(p.id, p.title, p.member.nickname, p.modifiedTime) from Post p inner join p.member m", PostResponseDto.class)
+                .setFirstResult(startPosition)
+                .setMaxResults(10)
+                .getResultList();
+
+        return resultList;
+    }
+
+    public Long findTotalCount() {
+        return (Long)em.createQuery("select count(p) from Post p").getSingleResult();
+    }
 }

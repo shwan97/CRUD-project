@@ -25,6 +25,11 @@ public class PostServiceImpl implements PostService{
     }
 
     @Transactional
+    public List<PostResponseDto> findListByPageId(Long pageId) {
+        return postRepository.findListByPageId(pageId);
+    }
+
+    @Transactional
     public PostDto findById(Long id) {
         Post post = postRepository.findById(id);
         PostDto postDto = PostDto.builder()
@@ -35,5 +40,13 @@ public class PostServiceImpl implements PostService{
                 .modifiedTime(post.getModifiedTime().format(formatter))
                 .build();
         return postDto;
+    }
+
+    @Transactional
+    public Long findLastPageNum() {
+        Long totalCount = postRepository.findTotalCount();
+        long visiblePostNum = 10L;
+        long lastPageNum = totalCount / visiblePostNum;
+        return (totalCount % visiblePostNum == 0) ? lastPageNum : lastPageNum+1;
     }
 }

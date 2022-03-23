@@ -82,11 +82,17 @@ class PostRepositoryTest {
 
         //when
         for (int idx = 0; idx < count; idx++) {
-            Post savePost = Post.builder().title("title"+idx).content("content"+idx).member(saveMember).build();
+            Post savePost = Post.builder().title("title" + idx).content("content" + idx).member(saveMember).build();
             postRepository.save(savePost);
         }
 
         //then
         Assertions.assertThat(postRepository.findAll().size()).isEqualTo(count + testDataNumber);
+    }
+
+    @Test
+    @DisplayName("게시글 개수를 확인한다.")
+    public void checkTotalCount() {
+        System.out.println("totalCount = " + postRepository.findTotalCount());
     }
 }

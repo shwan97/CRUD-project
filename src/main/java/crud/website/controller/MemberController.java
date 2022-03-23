@@ -3,7 +3,6 @@ package crud.website.controller;
 import crud.website.domain.Member;
 import crud.website.dto.MemberDto;
 import crud.website.service.MemberService;
-import crud.website.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
 
     private final MemberService memberService;
-    private final PostService postService;
 
     @GetMapping("/login")
     public String login() {
